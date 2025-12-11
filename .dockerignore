@@ -1,0 +1,8 @@
+.git
+.gitignore
+*.log
+*.zip
+*.rar
+*.pdf
+*.doc*
+*.txt

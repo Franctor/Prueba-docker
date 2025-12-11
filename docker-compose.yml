@@ -1,0 +1,62 @@
+services:
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    volumes:
+      - ./nginx/nginx.proxy.conf:/etc/nginx/conf.d/z-overrides.conf
+    ports:
+      - "80:80"
+    networks:
+      - backend
+
+  encuesta1:
+    build: ./encuesta
+    container_name: encuesta1
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  encuesta2:
+    build: ./encuesta
+    container_name: encuesta2
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  encuesta3:
+    build: ./encuesta
+    container_name: encuesta3
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  chiste:
+    build: ./chiste
+    container_name: chiste
+    networks:
+      - backend
+
+  db:
+    build: ./db
+    container_name: db
+    environment:
+      MYSQL_DATABASE: encuesta
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_votos_data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  db_votos_data:
+
+networks:
+  backend:
+    driver: bridge
