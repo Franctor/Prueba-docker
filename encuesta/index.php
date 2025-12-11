@@ -1,7 +1,7 @@
 <?php
 
 $host = 'db';
-$dbname = 'voto';
+$dbname = 'encuesta';
 $user = 'root';
 $pass = 'root';
 
